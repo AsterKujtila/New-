@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── SELLR Design Tokens ── */
+:root,
+.dark {
+  --background: #1a1210;
+  --foreground: #f5f0eb;
+  --card: rgba(255, 255, 255, 0.08);
+  --card-foreground: #f5f0eb;
+  --popover: #2e2520;
+  --popover-foreground: #f5f0eb;
+  --primary: #c4724a;
+  --primary-foreground: #fff;
+  --secondary: rgba(255, 255, 255, 0.12);
+  --secondary-foreground: #f5f0eb;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #a89890;
+  --accent: rgba(196, 114, 74, 0.2);
+  --accent-foreground: #f5f0eb;
+  --destructive: #c44040;
+  --destructive-foreground: #f5f0eb;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #c4724a;
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    box-sizing: border-box;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ── Glassmorphism ── */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ── SELLR gradient (MindCore corl-gradient equivalent) ── */
+.sellr-gradient {
+  background: linear-gradient(180deg, #1a1210 0%, #2e2218 35%, #5a3a28 65%, #a06040 100%);
+}
+
+/* ── Login gradient ── */
+.onboarding-gradient {
+  background: linear-gradient(180deg, #a8a4a0 0%, #b5a898 30%, #a89078 60%, #9a7e68 100%);
+}
+
+/* ── Noise texture ── */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Scrollbar ── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 9px; }
+
+/* ── Touch ── */
+.touch-scroll { -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+
+/* ── Animations ── */
+.page-enter { animation: pageIn 350ms cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes dotb {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50%       { transform: translateY(-5px) scale(1.15); opacity: 1; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ping {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ── Sheet/menu transitions ── */
+.menu-sheet-transition {
+  transition: transform 350ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.menu-panel-transition {
+  transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1),
+              opacity  300ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ── Button press ── */
+.btn-continue:active { transform: scale(0.97); }
+
+/* ── Safe area ── */
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0); }
+
+/* ── Prose for AI messages ── */
+.prose-sellr p   { margin-bottom: 0.65rem; line-height: 1.65; }
+.prose-sellr ul  { margin: 0.4rem 0 0.65rem 1.2rem; list-style: disc; }
+.prose-sellr ol  { margin: 0.4rem 0 0.65rem 1.2rem; list-style: decimal; }
+.prose-sellr li  { margin-bottom: 0.2rem; line-height: 1.6; }
+.prose-sellr strong { color: var(--foreground); font-weight: 600; }
+.prose-sellr em { font-style: italic; opacity: 0.85; }
+.prose-sellr code {
+  background: rgba(196, 114, 74, 0.15);
+  color: var(--primary);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.82em;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.prose-sellr pre {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem;
+  overflow-x: auto;
+  margin: 0.65rem 0;
+}
+.prose-sellr pre code { background: none; padding: 0; }
+.prose-sellr h1, .prose-sellr h2, .prose-sellr h3 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  color: var(--foreground);
+  font-weight: 700;
+  margin: 0.85rem 0 0.35rem;
+}
+.prose-sellr blockquote {
+  border-left: 2px solid var(--primary);
+  padding-left: 0.85rem;
+  color: var(--muted-foreground);
+  margin: 0.65rem 0;
+}
